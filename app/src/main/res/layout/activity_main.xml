@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/space_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/my_first_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Hello World!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="42dp" />
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="97dp"
+            android:layout_height="278dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/spaceship" />
+
+        <Button
+            android:id="@+id/my_first_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Blast Off" />
+
+        <Button
+            android:id="@+id/rent_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cat!" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
