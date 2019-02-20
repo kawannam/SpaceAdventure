@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         my_first_button = findViewById(R.id.my_first_button);
         my_first_text = findViewById(R.id.my_first_text);
         rent_button = findViewById(R.id.rent_button);
@@ -48,16 +47,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-/* button_press_count = button_press_count + 1;
-                if (my_first_text.getText() == "Hello World!") {
-                    my_first_text.setText("See you later!");
-                    my_first_button.setText("Land");
-                } else {
-                    my_first_text.setText("Hello World!");
-                    my_first_button.setText("Blast Off");
-                }*/
-
-/*
-        });*/
-
-//rent_button = findViewById(R.id.rent_button);
