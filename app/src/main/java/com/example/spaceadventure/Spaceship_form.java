@@ -1,7 +1,9 @@
 package com.example.spaceadventure;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +22,9 @@ public class Spaceship_form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spaceship_form);
-
         sam = new SpaceshipApplicationManager(getApplicationContext());
+
+
         submit_button = findViewById(R.id.submit_button);
         email_text = findViewById(R.id.email_text);
         phoneNumber_text = findViewById(R.id.phone_text);
@@ -30,6 +33,7 @@ public class Spaceship_form extends AppCompatActivity {
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.e("ATTENTION","SUBMIT BUTTON CLICKED");
                 setContentView(R.layout.activity_spaceship_form);
                 String email = email_text.getText().toString();
                 String phoneNumber = phoneNumber_text.getText().toString();
@@ -40,7 +44,7 @@ public class Spaceship_form extends AppCompatActivity {
 
                 sam.addApplication(sa);
 
-                setContentView(R.layout.activity_main);
+                finish();
 
             }
 

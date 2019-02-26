@@ -1,5 +1,6 @@
 package com.example.spaceadventure;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +9,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     Button my_first_button;
     Button rent_button;
+    Button view_all_button;
     TextView my_first_text;
     int button_press_count;
 
@@ -18,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         my_first_button = findViewById(R.id.my_first_button);
         my_first_text = findViewById(R.id.my_first_text);
+        view_all_button = findViewById(R.id.view_all_button);
         rent_button = findViewById(R.id.rent_button);
 
 
@@ -41,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         rent_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setContentView(R.layout.activity_spaceship_form);
+                Intent form = new Intent(getApplicationContext(), Spaceship_form.class);
+
+                startActivity(form);
             }
 
         });
