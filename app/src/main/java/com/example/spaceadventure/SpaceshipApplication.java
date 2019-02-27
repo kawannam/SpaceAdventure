@@ -52,12 +52,10 @@ public class SpaceshipApplication {
 
     @Override
     public String toString() {
-        return "SpaceshipApplication{" +
-                "id=" + id +
+        return  "id=" + id +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+                ", password='" + password + '\'';
     }
 }
