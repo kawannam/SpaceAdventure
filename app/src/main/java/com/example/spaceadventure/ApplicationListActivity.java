@@ -18,7 +18,9 @@ public class ApplicationListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application_list);
+
         sam = new SpaceshipApplicationManager(getApplicationContext());
+
         ll = findViewById(R.id.ll);
 
         ArrayList<SpaceshipApplication> apps = sam.getAllApplications();
