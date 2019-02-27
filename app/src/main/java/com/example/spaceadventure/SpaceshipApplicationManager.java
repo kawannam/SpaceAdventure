@@ -5,6 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteTransactionListener;
+import android.widget.Space;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpaceshipApplicationManager extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -44,6 +49,28 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+    public ArrayList<SpaceshipApplication> getAllApplications() {
+        ArrayList<SpaceshipApplication> appsList = new ArrayList<SpaceshipApplication>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                SpaceshipApplication sa = new SpaceshipApplication(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4)
+                );
+                appsList.add(sa);
+            } while (cursor.moveToNext());
+        }
+
+        return appsList;
     }
 
     SpaceshipApplication getApplication(int id) {
