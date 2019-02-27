@@ -1,6 +1,8 @@
 package com.example.spaceadventure;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,10 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static final String MyPREFERENCES = "MyPrefs" ; //K1
+    public static final String Name = "nameKey";
+    public static final String Phone = "phoneKey";
+    public static final String Email = "emailKey";
 
     Button my_first_button;
     Button rent_button;
@@ -17,10 +23,14 @@ public class MainActivity extends AppCompatActivity {
     TextView my_first_text;
     int button_press_count;
 
+    SharedPreferences sharedpreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
         my_first_button = findViewById(R.id.my_first_button);
