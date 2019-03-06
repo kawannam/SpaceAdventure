@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ApplicationListActivity"></activity>
-        <activity android:name=".Cat_page" />
         <activity android:name=".Spaceship_form" />
         <activity android:name=".MainActivity">
             <intent-filter>

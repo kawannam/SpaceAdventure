@@ -9,21 +9,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Spaceship_form extends AppCompatActivity {
 
+
+    //Database Variables
     SpaceshipApplicationManager sam;
 
+    //User Interface Variables
     Button submit_button;
     EditText email_text;
     EditText phoneNumber_text;
     EditText postalCode_text;
     EditText password_text;
 
-    public static final String MyPREFERENCES = "SpaceshipAdventures" ; //K1
-    public static final String NEXT_ID = "ID_Key";
 
-    SharedPreferences sharedpreferences; //K2
+    //Persistent (Variables that you want to last after a user closes the app) Variables
+    public static final String MyPREFERENCES = "SpaceshipAdventures" ; //The "folder" where your app data is saved on the phone
+    public static final String NEXT_ID = "ID_Key"; //The "file" where your variable is save
+    SharedPreferences sharedpreferences; //The class that helps save things to your phone
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,12 @@ public class Spaceship_form extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedpreferences.edit(); //K5
                 editor.putInt(NEXT_ID, id+1);
                 editor.commit();
+                Context context = getApplicationContext();
+                CharSequence text = "Application Submitted!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
 
                 sam.addApplication(sa);
 
