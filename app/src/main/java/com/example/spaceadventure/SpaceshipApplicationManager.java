@@ -26,7 +26,7 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_APPLICATIONS_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY,"
+        String CREATE_APPLICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS" + TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_EMAIL + " TEXT," + KEY_PHONENUMBER + " TEXT," + KEY_POSTALCODE + " TEXT," + KEY_PASSWORD + " TEXT)";
 
         db.execSQL(CREATE_APPLICATIONS_TABLE);
@@ -86,5 +86,23 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
         SpaceshipApplication spaceshipApplication = new SpaceshipApplication(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
         return spaceshipApplication;
+    }
+
+    public int updateApplication(SpaceshipApplication sa) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_EMAIL, sa.getEmail());
+        values.put(KEY_PASSWORD, sa.getPassword());
+        values.put(KEY_PHONENUMBER, sa.getPhoneNumber());
+        values.put(KEY_POSTALCODE, sa.getPostalCode());
+
+        return db.update(TABLE_NAME, values, KEY_ID + "=?", new String[]{String.valueOf(sa.getId())});
+    }
+
+    public void deleteApplication(SpaceshipApplication sa) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + "=?", new String[] {String.valueOf(sa.getId())});
+        db.close();
     }
 }
