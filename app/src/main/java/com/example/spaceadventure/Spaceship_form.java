@@ -16,6 +16,7 @@ public class Spaceship_form extends AppCompatActivity {
 
     //Database Variables
     SpaceshipApplicationManager sam;
+    int update_id;
 
     //User Interface Variables
     Button submit_button;
@@ -46,6 +47,11 @@ public class Spaceship_form extends AppCompatActivity {
         password_text = findViewById(R.id.password_text);
 
 
+        Intent intent = getIntent();
+        update_id = intent.getIntExtra("id", -1);
+        if (update_id > -1) {
+            submit_button.setText("Update");
+        }
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -53,28 +59,41 @@ public class Spaceship_form extends AppCompatActivity {
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.e("ATTENTION","SUBMIT BUTTON CLICKED");
-                setContentView(R.layout.activity_spaceship_form);
                 String email = email_text.getText().toString();
                 String phoneNumber = phoneNumber_text.getText().toString();
                 String postalCode = postalCode_text.getText().toString();
                 String password = password_text.getText().toString();
 
-                int id = sharedpreferences.getInt(NEXT_ID, 0); //K4
+                if (update_id < 0) {
+                    int id = sharedpreferences.getInt(NEXT_ID, 0); //K4
 
-                SpaceshipApplication sa = new SpaceshipApplication(id, email, phoneNumber, postalCode, password);
+                    SpaceshipApplication sa = new SpaceshipApplication(id, email, phoneNumber, postalCode, password);
 
-                SharedPreferences.Editor editor = sharedpreferences.edit(); //K5
-                editor.putInt(NEXT_ID, id+1);
-                editor.commit();
-                Context context = getApplicationContext();
-                CharSequence text = "Application Submitted!";
-                int duration = Toast.LENGTH_SHORT;
+                    SharedPreferences.Editor editor = sharedpreferences.edit(); //K5
+                    editor.putInt(NEXT_ID, id+1);
+                    editor.commit();
+                    Context context = getApplicationContext();
+                    CharSequence text = "Application Submitted!";
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
 
-                sam.addApplication(sa);
+                    sam.addApplication(sa);
+                }
+                else {
+                    SpaceshipApplication sa = new SpaceshipApplication(update_id, email, phoneNumber, postalCode, password);
+
+                    Context context = getApplicationContext();
+                    CharSequence text = "Application Updated!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                    sam.updateApplication(sa);
+                }
+
 
                 finish();
 

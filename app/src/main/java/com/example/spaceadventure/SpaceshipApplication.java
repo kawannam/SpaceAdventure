@@ -2,7 +2,11 @@ package com.example.spaceadventure;
 
 public class SpaceshipApplication {
 
-    int id;
+    public int getId() {
+        return id;
+    }
+
+    public int id;
 
     public String getEmail() {
         return email;
