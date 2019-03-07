@@ -38,15 +38,15 @@ public class Spaceship_form extends AppCompatActivity {
         sam = new SpaceshipApplicationManager(getApplicationContext());
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE); //K3
-
-
+        // binding UI elements
         submit_button = findViewById(R.id.submit_button);
         email_text = findViewById(R.id.email_text);
         phoneNumber_text = findViewById(R.id.phone_text);
         postalCode_text = findViewById(R.id.postalCode_text);
         password_text = findViewById(R.id.password_text);
 
-
+        // If this was launched from Rent Spaceship, there won't be an id field in the intent, i.e. update_id = -1. We want to make a new application
+        // But if this was launched from Application List, then update_id will be >= 0. We want to update and existing application
         Intent intent = getIntent();
         update_id = intent.getIntExtra("id", -1);
         if (update_id > -1) {
@@ -64,37 +64,30 @@ public class Spaceship_form extends AppCompatActivity {
                 String postalCode = postalCode_text.getText().toString();
                 String password = password_text.getText().toString();
 
+                Context context = getApplicationContext();
+                CharSequence text;
+                int duration = Toast.LENGTH_SHORT;
+
                 if (update_id < 0) {
                     int id = sharedpreferences.getInt(NEXT_ID, 0); //K4
 
                     SpaceshipApplication sa = new SpaceshipApplication(id, email, phoneNumber, postalCode, password);
-
                     SharedPreferences.Editor editor = sharedpreferences.edit(); //K5
                     editor.putInt(NEXT_ID, id+1);
                     editor.commit();
-                    Context context = getApplicationContext();
-                    CharSequence text = "Application Submitted!";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-
                     sam.addApplication(sa);
+
+                    text = "Application Submitted!";
                 }
                 else {
                     SpaceshipApplication sa = new SpaceshipApplication(update_id, email, phoneNumber, postalCode, password);
-
-                    Context context = getApplicationContext();
-                    CharSequence text = "Application Updated!";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-
                     sam.updateApplication(sa);
+                    text = "Application Updated!";
+
                 }
 
-
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
                 finish();
 
             }
