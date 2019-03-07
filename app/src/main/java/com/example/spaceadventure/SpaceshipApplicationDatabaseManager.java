@@ -11,7 +11,7 @@ import android.widget.Space;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpaceshipApplicationManager extends SQLiteOpenHelper {
+public class SpaceshipApplicationDatabaseManager extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "spaceshipRental";
     private static final String TABLE_NAME = "applications";
@@ -21,12 +21,12 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
     private static final String KEY_POSTALCODE = "postalCode";
     private static final String KEY_PASSWORD = "password";
 
-    public SpaceshipApplicationManager(Context context) {
+    SpaceshipApplicationDatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_APPLICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS" + TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY,"
+        String CREATE_APPLICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_EMAIL + " TEXT," + KEY_PHONENUMBER + " TEXT," + KEY_POSTALCODE + " TEXT," + KEY_PASSWORD + " TEXT)";
 
         db.execSQL(CREATE_APPLICATIONS_TABLE);
@@ -41,18 +41,18 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_EMAIL, spaceshipApplication.email);
-        values.put(KEY_PHONENUMBER, spaceshipApplication.phoneNumber);
-        values.put(KEY_POSTALCODE, spaceshipApplication.postalCode);
-        values.put(KEY_PASSWORD, spaceshipApplication.password);
+        values.put(KEY_EMAIL, spaceshipApplication.getEmail());
+        values.put(KEY_PHONENUMBER, spaceshipApplication.getPhoneNumber());
+        values.put(KEY_POSTALCODE, spaceshipApplication.getPostalCode());
+        values.put(KEY_PASSWORD, spaceshipApplication.getPassword());
 
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public ArrayList<SpaceshipApplication> getAllApplications() {
-        ArrayList<SpaceshipApplication> appsList = new ArrayList<SpaceshipApplication>();
+    ArrayList<SpaceshipApplication> getAllApplications() {
+        ArrayList<SpaceshipApplication> appsList = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
@@ -69,7 +69,7 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
                 appsList.add(sa);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         return appsList;
     }
 
@@ -82,13 +82,12 @@ public class SpaceshipApplicationManager extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-
-        SpaceshipApplication spaceshipApplication = new SpaceshipApplication(Integer.parseInt(cursor.getString(0)),
+        cursor.close();
+        return new SpaceshipApplication(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
-        return spaceshipApplication;
     }
 
-    public int updateApplication(SpaceshipApplication sa) {
+    int updateApplication(SpaceshipApplication sa) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

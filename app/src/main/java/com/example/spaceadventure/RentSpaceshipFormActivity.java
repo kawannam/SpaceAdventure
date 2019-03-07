@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Spaceship_form extends AppCompatActivity {
+public class RentSpaceshipFormActivity extends AppCompatActivity {
 
 
     //Database Variables
-    SpaceshipApplicationManager sam;
+    SpaceshipApplicationDatabaseManager sam;
     int update_id;
 
     //User Interface Variables
@@ -34,8 +33,8 @@ public class Spaceship_form extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spaceship_form);
-        sam = new SpaceshipApplicationManager(getApplicationContext());
+        setContentView(R.layout.activity_rent_spaceship_form);
+        sam = new SpaceshipApplicationDatabaseManager(getApplicationContext());
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE); //K3
         // binding UI elements

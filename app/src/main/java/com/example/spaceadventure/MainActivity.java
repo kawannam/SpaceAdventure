@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         rent_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Spaceship_form.class);
+                Intent i = new Intent(getApplicationContext(), RentSpaceshipFormActivity.class);
 
                 startActivity(i);
             }
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         view_all_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ApplicationListActivity.class);
+                Intent i = new Intent(getApplicationContext(), SpaceshipApplicationListActivity.class);
                 startActivity(i);
             }
         });

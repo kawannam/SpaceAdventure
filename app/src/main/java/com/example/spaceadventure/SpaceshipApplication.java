@@ -2,13 +2,13 @@ package com.example.spaceadventure;
 
 public class SpaceshipApplication {
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public int id;
+    private int id;
 
-    public String getEmail() {
+    String getEmail() {
         return email;
     }
 
@@ -16,7 +16,7 @@ public class SpaceshipApplication {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -24,7 +24,7 @@ public class SpaceshipApplication {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPostalCode() {
+    String getPostalCode() {
         return postalCode;
     }
 
@@ -32,7 +32,7 @@ public class SpaceshipApplication {
         this.postalCode = postalCode;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
@@ -40,10 +40,10 @@ public class SpaceshipApplication {
         this.password = password;
     }
 
-    String email;
-    String phoneNumber;
-    String postalCode;
-    String password;
+    private String email;
+    private String phoneNumber;
+    private String postalCode;
+    private String password;
 
     public SpaceshipApplication(int id, String email, String phoneNumber, String postalCode, String password) {
 
@@ -56,10 +56,9 @@ public class SpaceshipApplication {
 
     @Override
     public String toString() {
-        return  "id=" + id +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", password='" + password + '\'';
+        return  "ID = " + id +
+                "\t|\tEmail = " + email +
+                "\t|\tPhone Number = " + phoneNumber +
+                "\t|\tPostal Code = " + postalCode;
     }
 }
