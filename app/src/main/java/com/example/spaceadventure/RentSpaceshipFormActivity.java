@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class RentSpaceshipFormActivity extends AppCompatActivity {
 
 
     //Database Variables
-    SpaceshipApplicationDatabaseManager sam;
+    SpaceshipApplicationDatabaseManager spaceshipApplicationDatabaseManager;
     int update_id;
 
     //User Interface Variables
@@ -24,6 +25,7 @@ public class RentSpaceshipFormActivity extends AppCompatActivity {
     EditText postalCode_text;
     EditText password_text;
 
+    LinearLayout rentalLinearLayout;
 
     //Persistent (Variables that you want to last after a user closes the app) Variables
     public static final String MyPREFERENCES = "SpaceshipAdventures" ; //The "folder" where your app data is saved on the phone
@@ -34,10 +36,12 @@ public class RentSpaceshipFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_spaceship_form);
-        sam = new SpaceshipApplicationDatabaseManager(getApplicationContext());
+        spaceshipApplicationDatabaseManager = new SpaceshipApplicationDatabaseManager(getApplicationContext());
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE); //K3
         // binding UI elements
+
+        rentalLinearLayout = findViewById(R.id.rentalLinearLayout);
         submit_button = findViewById(R.id.submit_button);
         email_text = findViewById(R.id.email_text);
         phoneNumber_text = findViewById(R.id.phone_text);
@@ -45,11 +49,23 @@ public class RentSpaceshipFormActivity extends AppCompatActivity {
         password_text = findViewById(R.id.password_text);
 
         // If this was launched from Rent Spaceship, there won't be an id field in the intent, i.e. update_id = -1. We want to make a new application
-        // But if this was launched from Application List, then update_id will be >= 0. We want to update and existing application
+        // But if this was launched from Application List, then update_id will be >= 0. We want to update an existing application
         Intent intent = getIntent();
         update_id = intent.getIntExtra("id", -1);
         if (update_id > -1) {
             submit_button.setText("Update");
+
+            Button deleteButton = new Button(getApplicationContext());
+            rentalLinearLayout.addView(deleteButton);
+            deleteButton.setText("Delete");
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    spaceshipApplicationDatabaseManager.deleteApplication(update_id);
+                    finish();
+                }
+            });
+
+
         }
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -67,20 +83,20 @@ public class RentSpaceshipFormActivity extends AppCompatActivity {
                 CharSequence text;
                 int duration = Toast.LENGTH_SHORT;
 
-                if (update_id < 0) {
+                if (update_id < 0) { // For a new application
                     int id = sharedpreferences.getInt(NEXT_ID, 0); //K4
 
                     SpaceshipApplication sa = new SpaceshipApplication(id, email, phoneNumber, postalCode, password);
                     SharedPreferences.Editor editor = sharedpreferences.edit(); //K5
                     editor.putInt(NEXT_ID, id+1);
                     editor.commit();
-                    sam.addApplication(sa);
+                    spaceshipApplicationDatabaseManager.addApplication(sa);
 
                     text = "Application Submitted!";
                 }
-                else {
-                    SpaceshipApplication sa = new SpaceshipApplication(update_id, email, phoneNumber, postalCode, password);
-                    sam.updateApplication(sa);
+                else { // For an application update
+                    SpaceshipApplication updatedSpaceshipApplication = new SpaceshipApplication(update_id, email, phoneNumber, postalCode, password);
+                    spaceshipApplicationDatabaseManager.updateApplication(updatedSpaceshipApplication);
                     text = "Application Updated!";
 
                 }

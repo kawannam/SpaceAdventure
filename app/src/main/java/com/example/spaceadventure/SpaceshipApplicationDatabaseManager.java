@@ -99,9 +99,9 @@ public class SpaceshipApplicationDatabaseManager extends SQLiteOpenHelper {
         return db.update(TABLE_NAME, values, KEY_ID + "=?", new String[]{String.valueOf(sa.getId())});
     }
 
-    public void deleteApplication(SpaceshipApplication sa) {
+    public void deleteApplication(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_ID + "=?", new String[] {String.valueOf(sa.getId())});
+        db.delete(TABLE_NAME, KEY_ID + "=?", new String[] {String.valueOf(id)});
         db.close();
     }
 }
