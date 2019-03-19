@@ -10,20 +10,23 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    public static final String MyPREFERENCES = "MyPrefs" ; //K1
     public static final String Name = "nameKey";
     public static final String Phone = "phoneKey";
     public static final String Email = "emailKey";
 
-    Button my_first_button;
+
+    // UI Elements to bind
+    Button blast_off_button;
     Button rent_button;
     Button view_all_button;
-    TextView my_first_text;
+    TextView blast_off_text;
+
+    // Other
     int button_press_count;
 
+    // For Local Persistent Variables
     SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ; //K1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +35,44 @@ public class MainActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
-        my_first_button = findViewById(R.id.my_first_button);
-        my_first_text = findViewById(R.id.my_first_text);
+        // Binding UI Elements
+        blast_off_button = findViewById(R.id.blast_off_button);
+        blast_off_text = findViewById(R.id.blast_off_text);
         view_all_button = findViewById(R.id.view_all_button);
         rent_button = findViewById(R.id.rent_button);
 
-
         button_press_count = 0;
 
-        my_first_button.setOnClickListener(new View.OnClickListener() {
+        // blast_off_button OnClick behaviour
+        blast_off_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 button_press_count = button_press_count + 1;
-                if (my_first_text.getText() == "Hello World!") {
-                    my_first_text.setText("See you later");
-                    my_first_button.setText("Land");
+
+                // Toggles the displayed text, and on the button.
+                if (blast_off_text.getText() == "Hello World!") {
+                    blast_off_text.setText("See you later");
+                    blast_off_button.setText("Land");
                 } else {
-                    my_first_text.setText("Hello World!");
-                    my_first_button.setText("Blast Off!");
+                    blast_off_text.setText("Hello World!");
+                    blast_off_button.setText("Blast Off!");
                 }
             }
         });
 
-
+        // rent_button OnClick behaviour
         rent_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // Start a new activity to fill in a spaceship rental form.
                 Intent i = new Intent(getApplicationContext(), RentSpaceshipFormActivity.class);
-
                 startActivity(i);
             }
 
         });
 
+        // view_all_button OnClick behaviour
         view_all_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // Start a new activity to view all the rental applications in the database.
                 Intent i = new Intent(getApplicationContext(), SpaceshipApplicationListActivity.class);
                 startActivity(i);
             }

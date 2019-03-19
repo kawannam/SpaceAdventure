@@ -19,17 +19,28 @@ public class SpaceshipApplicationListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spaceship_application_list);
 
+        // Create a new instance of the database manager so we can get the rental applications
         spaceshipApplicationDatabaseManager = new SpaceshipApplicationDatabaseManager(getApplicationContext());
 
+        // Bind the linear layout so we can programmatically add views into it.
         linearLayout = findViewById(R.id.applicationListLinearLayout);
 
-        ArrayList<SpaceshipApplication> apps = spaceshipApplicationDatabaseManager.getAllApplications();
+        // Retrieve data from database, create an ArrayList of new SpaceshipApplication objects using that data
+        ArrayList<SpaceshipApplication> allApplications = spaceshipApplicationDatabaseManager.getAllApplications();
 
-        for (int i = 0; i < apps.size(); i++) {
-            SpaceshipApplication sa = apps.get(i);
+        // Iterating through list of applications:
+        // For each application,
+        //      Reference a SpaceshipApplication object using the data from the database
+        //      Create a new TextView, display the SpaceshipApplication's data as the TextView's text
+        //      Set the OnClick behaviour of the TextView so that if clicked, the user can edit and update that
+        //          application's data.
+        //      Add the TextView to the LinearLayout
+
+        for (int i = 0; i < allApplications.size(); i++) {
+            SpaceshipApplication spaceshipApplication = allApplications.get(i);
             TextView t = new TextView(getApplicationContext());
-            t.setText(sa.toString());
-            final int update_id = sa.getId();
+            t.setText(spaceshipApplication.toString());
+            final int update_id = spaceshipApplication.getId();
             t.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
