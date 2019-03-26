@@ -32,6 +32,7 @@ public class RentSpaceshipFormActivity extends AppCompatActivity {
     public static final String NEXT_ID = "ID_Key"; //The "file" where your variable is save
     SharedPreferences sharedpreferences; //The class that helps save things to your phone
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
