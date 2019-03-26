@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpaceshipApplicationDatabaseManager extends SQLiteOpenHelper {
+    // Database Config
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "spaceshipRental";
+
+    // "applications" Table Details
     private static final String TABLE_NAME = "applications";
     private static final String KEY_ID = "id";
     private static final String KEY_EMAIL= "email";
@@ -21,11 +24,14 @@ public class SpaceshipApplicationDatabaseManager extends SQLiteOpenHelper {
     private static final String KEY_POSTALCODE = "postalCode";
     private static final String KEY_PASSWORD = "password";
 
+    // Constructor
     SpaceshipApplicationDatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Construct a SQL query to create a new table if it doesn't already exist.
+        //PRIMARY KEY indicates that this field is to be used to uniquely identify the row in the table
         String CREATE_APPLICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_EMAIL + " TEXT," + KEY_PHONENUMBER + " TEXT," + KEY_POSTALCODE + " TEXT," + KEY_PASSWORD + " TEXT)";
 
